@@ -1,0 +1,41 @@
+rahman@rahman:~$ sudo docker pull ubuntu
+Using default tag: latest
+latest: Pulling from library/ubuntu
+Digest: sha256:b4f9e18267eb98998f6130342baacaeb9553f136142d40959a1b46d6401f0f2b
+Status: Image is up to date for ubuntu:latest
+docker.io/library/ubuntu:latest
+rahman@rahman:~$ sudo docker images
+REPOSITORY                    TAG       IMAGE ID       CREATED         SIZE
+my_first_image                latest    e113fe71c1ba   21 hours ago    100MB
+ubuntu                        latest    4dd97cefde62   8 days ago      72.9MB
+gcr.io/k8s-minikube/kicbase   v0.0.18   a776c544501a   2 weeks ago     1.08GB
+nginx                         latest    35c43ace9216   3 weeks ago     133MB
+hello-world                   latest    bf756fb1ae65   14 months ago   13.3kB
+rahman@rahman:~$ sudo docker run -it 4dd97cefde62 bin/bash
+root@6b2cd5508b95:/# nmap --version
+bash: nmap: command not found
+root@6b2cd5508b95:/# apt-get install nmap
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+E: Unable to locate package nmap
+root@6b2cd5508b95:/# exit
+exit
+rahman@rahman:~$ sudo docker ps -a
+CONTAINER ID   IMAGE                                 COMMAND                  CREATED              STATUS                        PORTS                                                                                                                                  NAMES
+6b2cd5508b95   4dd97cefde62                          "bin/bash"               About a minute ago   Exited (100) 22 seconds ago                                                                                                                                          elegant_kirch
+0fba675f0fd0   4dd97cefde62                          "bin/bash"               15 minutes ago       Exited (0) 10 minutes ago                                                                                                                                            awesome_jennings
+c7c0eac1bbc9   my_first_image                        "echo 'welcome to kl…"   57 minutes ago       Exited (0) 57 minutes ago                                                                                                                                            test
+919b3911905e   nginx                                 "/docker-entrypoint.…"   2 days ago           Exited (0) 2 days ago                                                                                                                                                agitated_lehmann
+8345fb314629   hello-world                           "/hello"                 7 days ago           Exited (0) 7 days ago                                                                                                                                                youthful_fermi
+2d955e74aaa5   gcr.io/k8s-minikube/kicbase:v0.0.18   "/usr/local/bin/entr…"   7 days ago           Exited (255) 2 days ago       127.0.0.1:49157->22/tcp, 127.0.0.1:49156->2376/tcp, 127.0.0.1:49155->5000/tcp, 127.0.0.1:49154->8443/tcp, 127.0.0.1:49153->32443/tcp   minikube
+rahman@rahman:~$ sudo docker commit 6b2cd5508b95 ubuntu-nmap
+sha256:24c712613f20f5c7238c75108e4f5f22b0c6d0e1ed71faa079c9928f66206cc2
+rahman@rahman:~$ sudo docker images
+REPOSITORY                    TAG       IMAGE ID       CREATED          SIZE
+ubuntu-nmap                   latest    24c712613f20   28 seconds ago   72.9MB
+my_first_image                latest    e113fe71c1ba   21 hours ago     100MB
+ubuntu                        latest    4dd97cefde62   8 days ago       72.9MB
+gcr.io/k8s-minikube/kicbase   v0.0.18   a776c544501a   2 weeks ago      1.08GB
+nginx                         latest    35c43ace9216   3 weeks ago      133MB
+hello-world                   latest    bf756fb1ae65   14 months ago    13.3kB
